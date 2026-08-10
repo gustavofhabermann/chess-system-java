@@ -10,8 +10,6 @@ public class App {
     public static void main(String[] args) throws Exception {
         Scanner sc = new Scanner(System.in);
         
-        System.out.println("chess system");
-
         ChessMatch cm = new ChessMatch();
         while(true){
             try {
@@ -21,16 +19,20 @@ public class App {
                 System.out.print("Source: ");
                 ChessPosition source = UI.readChessPosition(sc);
 
+                boolean[][] possibleMoves = cm.possibleMove(source);
+                UI.clearScreen();
+                UI.printBoard(cm.getPieces(), possibleMoves);
+
                 System.out.println();
                 System.out.print("Target: ");
                 ChessPosition target = UI.readChessPosition(sc);
 
                 ChessPiece capturedChessPiece = cm.performanceChessMove(source, target);
             } catch (ChessException e) {
-                e.getMessage();
+                System.out.println(e.getMessage()); 
                 sc.nextLine();
             } catch (InputMismatchException e) {
-                e.getMessage();
+                System.out.println(e.getMessage());
                 sc.nextLine();
             }
             
